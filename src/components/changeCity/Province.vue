@@ -7,6 +7,7 @@
         title="省份"
         :provinceList="provinceList"
         @change_select="clickProSelect"
+        @change="choosenPro"
         :showChooseContent="chooseProFlag"
       />
       <m-select
@@ -14,6 +15,7 @@
         title="城市"
         :provinceList="cityList"
         @change_select="clickCitySelect"
+        @change="choosenCity"
         :showChooseContent="chooseCityFlag"
       />
     </span>
@@ -79,6 +81,12 @@ export default {
       if (flag) {
         this.chooseProFlag = false;
       }
+    },
+    choosenPro(item) {
+      this.province = item;
+    },
+    choosenCity(item) {
+      this.city = item;
     },
     remoteMethod(val) {
         // 请求后端接口

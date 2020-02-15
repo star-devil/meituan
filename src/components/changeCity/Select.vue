@@ -7,7 +7,12 @@
         <p>{{ title }}</p>
         <div class="wrapper">
           <div class="col">
-            <span class="mt-item" v-for="(item,index) in provinceList" :key="index">{{ item }}</span>
+            <span
+              class="mt-item"
+              v-for="(item,index) in provinceList"
+              :key="index"
+               @click="choosen(item)"
+            >{{ item }}</span>
           </div>
         </div>
       </div>
@@ -22,7 +27,7 @@ export default {
       renderList: []
     };
   },
-  props: ["value","title", "provinceList", "showChooseContent"],
+  props: ["value", "title", "provinceList", "showChooseContent"],
   methods: {
     inpClick(e) {
       e.stopPropagation();
@@ -30,6 +35,9 @@ export default {
     },
     documentClick() {
       this.$emit("change_select", false);
+    },
+    choosen (item) {
+      this.$emit("change",item)
     }
   }
 };

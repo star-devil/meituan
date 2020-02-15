@@ -9,13 +9,16 @@
     <el-row class="m-iselect">
         <h-city title="最近访问：" :cityList="oftenCityList"/>
     </el-row>
-    <el-row class="m-iselect"></el-row>
+    <el-row class="m-iselect">
+        <category />
+    </el-row>
   </div>
 </template>
 
 <script>
 import Province from "@/components/changeCity/Province"
 import HCity from "@/components/changeCity/HotCity"
+import Category from "@/components/changeCity/Category"
 export default {
     data() {
         return {
@@ -25,7 +28,8 @@ export default {
     },
     components: {
         Province,
-        HCity
+        HCity,
+        Category
     }
 };
 </script>
