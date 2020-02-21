@@ -1,8 +1,5 @@
 .choose-wrap {
     display: inline-block;
-    &.disabled {
-      cursor: not-allowed;
-    }
     >.choose{
         cursor: pointer;
         border-radius: 4px;
@@ -28,6 +25,11 @@
           margin-bottom: auto;
         }
     }
+    
+    .disabled {
+      cursor: not-allowed;
+    }
+
     .choose {
       .mt-content {
           p {

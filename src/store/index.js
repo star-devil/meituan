@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    position: '上海'
+    position: {}
   },
   mutations: {
     setPosition (state, val) {

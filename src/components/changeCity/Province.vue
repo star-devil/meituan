@@ -5,7 +5,7 @@
       <m-select
         :value="province"
         title="省份"
-        :provinceList="provinceList"
+        :provinceList="proList"
         @change_select="clickProSelect"
         @change="choosenPro"
         :showChooseContent="chooseProFlag"
@@ -17,6 +17,8 @@
         @change_select="clickCitySelect"
         @change="choosenCity"
         :showChooseContent="chooseCityFlag"
+        :disabled="cityDisabled"
+        className="city"
       />
     </span>
     <span class="citySearch">直接搜索：</span>
@@ -30,7 +32,7 @@
     :loading="loading">
     <el-option
       v-for="item in cityList"
-      :key="item"
+      :key="item.id"
       :value="item">
     </el-option>
   </el-select>
@@ -39,6 +41,7 @@
 
 <script>
 import MSelect from "@/components/changeCity/Select";
+import api from '@/api/index.js'
 export default {
   data() {
     return {
@@ -46,25 +49,21 @@ export default {
       chooseProFlag: false,
       chooseCityFlag: false,
       province: "省份",
-      provinceList: [
-        "山东",
-        "甘肃",
-        "江苏",
-        "北京",
-        "云南",
-        "海南",
-        "浙江",
-        "上海",
-        "天津",
-        "陕西",
-        "新疆",
-        "贵州"
-      ],
+      proList: [],
       city: "城市",
-      cityList: ["兰州", "金昌", "白银", "天水"],
+      cityList: [],
       searchWord: "",
-      loading: false
+      loading: false,
+      cityDisabled: true,
     };
+  },
+  mounted() {
+    api.getProvince().then(res=> {
+      this.proList = res.data.data.map(item => {
+        item.name = item.provinceName;
+        return item;
+      })
+    })
   },
   components: {
     MSelect
@@ -83,10 +82,15 @@ export default {
       }
     },
     choosenPro(item) {
-      this.province = item;
+      console.log(item)
+      this.province = item.name;
+      this.cityDisabled = false;
+      this.cityList = item.cityInfoList;
     },
     choosenCity(item) {
-      this.city = item;
+      this.city = item.name;
+      this.$store.dispatch('setPosition',item);
+      this.$router.push({name: 'index'})
     },
     remoteMethod(val) {
         // 请求后端接口
