@@ -13,7 +13,10 @@ let api = {
     return axios.get('/api/meituan/city/province.json')
   },
   getGeoLocation () {
-      return axios.get('/api/meituan/city/getPosition.json')
+    return axios.get('/api/meituan/city/getPosition.json')
+  },
+  login (params) {
+    return axios.get('/api/meituan/login', params)
   }
 }
 
